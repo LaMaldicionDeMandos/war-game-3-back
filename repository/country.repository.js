@@ -11,6 +11,10 @@ class CountryRepository {
 
         return country.save();
     }
+
+    findAllBut(countryId) {
+        return db.Country.find({_id: {$ne: countryId}});
+    }
 }
 
 const repo = new CountryRepository();

@@ -12,12 +12,24 @@ class WorldService {
     const currentDate = await worldRepo.getCurrentDate();
     const assignEvent = eventBuilder.createAssignBudgetEvent(country._id, currentDate);
     eventRepo.newEvent(assignEvent);
-    //TODO Create event new Country to all countries after 5 minutes
+    this.#doByCountryBut(country._id, (c) => {
+      const newCountryEvent = eventBuilder.createNewCountryEvent(c._id, currentDate, country);
+      eventRepo.newEvent(newCountryEvent);
+    })
     return country;
   }
 
   setCurrentDate(currentDate) {
     return worldRepo.setCurrentDate(currentDate);
+  }
+
+  async #doByCountryBut(countryId, action) {
+    const countries = await countryRepo.findAllBut(countryId);
+    return this.#doByCountry(action, countries);
+  }
+
+  #doByCountry(action, countries) {
+    _.each(countries, (country) => action(country));
   }
 }
 
