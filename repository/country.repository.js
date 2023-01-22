@@ -1,8 +1,7 @@
 const db = require('./DB');
-const _ = require('lodash');
 
 class CountryRepository {
-    newProfile(countryDTO) {
+    newCountry(countryDTO) {
         const country = new db.Country();
         country._id = new db.ObjectId();
         country.code = countryDTO.code;

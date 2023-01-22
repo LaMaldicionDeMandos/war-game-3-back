@@ -16,8 +16,9 @@ class WorldRepository {
         return date.save();
     }
 
-    getCurrentDate() {
-        return db.WorldParam.findOne({key: CURRENT_DATE});
+    async getCurrentDate() {
+        const prop = await db.WorldParam.findOne({key: CURRENT_DATE});
+        return prop.value;
     }
 }
 
