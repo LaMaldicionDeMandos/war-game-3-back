@@ -41,4 +41,15 @@ router.put('/current-date',
       });
   });
 
+router.get('/current-date',
+  async (req, res) => {
+    service.getCurrentDate()
+      .then(result => {
+        res.status(200).send(result);
+      })
+      .catch(e => {
+        res.status(500).send(e);
+      });
+  });
+
 module.exports = router;

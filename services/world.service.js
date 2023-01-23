@@ -21,6 +21,10 @@ class WorldService {
     return country;
   }
 
+  getCurrentDate() {
+    return worldRepo.getCurrentDate();
+  }
+
   setCurrentDate(currentDate) {
     return worldRepo.setCurrentDate(currentDate);
   }
