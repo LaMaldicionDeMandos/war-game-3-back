@@ -15,6 +15,10 @@ class CountryRepository {
     findAllBut(countryId) {
         return db.Country.find({_id: {$ne: countryId}});
     }
+
+    existsByCode(countryCode) {
+        return db.Country.exists({code: countryCode});
+    }
 }
 
 const repo = new CountryRepository();

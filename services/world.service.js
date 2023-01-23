@@ -8,6 +8,8 @@ const { eventBuilder } = require('../utils/event_builder');
 class WorldService {
 
   async addCountry(countryDto) {
+    const exists = await this.#existsCountryCode(countryDto.code);
+    if (exists) return Promise.reject({message: `Country ${countryDto.code} already exists.`});
     const country = await countryRepo.newCountry(countryDto);
     const currentDate = await worldRepo.getCurrentDate();
     const assignEvent = eventBuilder.createAssignBudgetEvent(country._id, currentDate);
@@ -30,6 +32,10 @@ class WorldService {
 
   #doByCountry(action, countries) {
     _.each(countries, (country) => action(country));
+  }
+
+  #existsCountryCode(countryCode) {
+    return countryRepo.existsByCode(countryCode);
   }
 }
 
