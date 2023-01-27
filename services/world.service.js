@@ -29,6 +29,11 @@ class WorldService {
     return worldRepo.setCurrentDate(currentDate);
   }
 
+  async getNextEvent() {
+    const currentDate = await this.getCurrentDate();
+    return eventRepo.nextAfter(currentDate);
+  }
+
   async #doByCountryBut(countryId, action) {
     const countries = await countryRepo.findAllBut(countryId);
     return this.#doByCountry(action, countries);

@@ -8,9 +8,13 @@ class EventRepository {
         ev.type = eventDTO.type;
         ev.date = eventDTO.date;
         ev.payload = eventDTO.payload;
-
         return ev.save();
     }
+
+    nextAfter(date) {
+        return db.Event.findOne({date: {'$gte': date}, processed: false}).sort({date: 1});
+    }
+
 }
 
 const repo = new EventRepository();

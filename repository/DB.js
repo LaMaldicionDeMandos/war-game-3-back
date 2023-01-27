@@ -20,7 +20,8 @@ const EventSchema = new Schema( {
     countryId: {type: String, index: true},
     type: {type: String, enum: ['assign_budget', 'new_country']},
     date: {type: Date, index: true},
-    payload: {}
+    payload: {},
+    processed: {type: Boolean, index: true, default: false}
 });
 
 const WorldParam = mongoose.model('World', WorldParamSchema);

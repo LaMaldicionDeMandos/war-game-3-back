@@ -52,4 +52,15 @@ router.get('/current-date',
       });
   });
 
+router.get('/events/next',
+  async (req, res) => {
+    service.getNextEvent()
+      .then(result => {
+        res.status(200).send(result);
+      })
+      .catch(e => {
+        res.status(500).send(e);
+      });
+  });
+
 module.exports = router;
