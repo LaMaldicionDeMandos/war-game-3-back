@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const pointSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+        required: true
+    },
+    coordinates: {
+        type: [Number],
+        required: true
+    }
+});
+
 const WorldParamSchema = new Schema( {
    _id: String,
    key: {type: String, index: true},
@@ -13,6 +25,8 @@ const CountrySchema = new Schema({
     name: String,
     pib: Number,
     pop: Number,
+    position: {lat: Number, lng: Number},
+    geoLocation: {type: pointSchema, index: {type: '2dsphere', sparse: true}}
 });
 
 const EventSchema = new Schema( {

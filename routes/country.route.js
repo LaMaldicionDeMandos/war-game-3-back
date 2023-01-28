@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const service = require('../services/world.service');
+const service = require('../services/countries.service');
 
 const router = express.Router();
 
@@ -12,33 +12,25 @@ errorMiddleware = (req, res, next) => {
   next();
 };
 
-router.put('/current-date',
-  body('date').isISO8601(),
+router.post('/',
+  body('code').notEmpty(),
+  body('name').notEmpty(),
+  body('pib').notEmpty(),
+  body('pop').notEmpty(),
   errorMiddleware,
   async (req, res, next) => {
-    service.setCurrentDate(req.body.date)
+    service.addCountry(req.body)
       .then(result => {
-        res.status(200).send(result);
+        res.status(201).send(result);
       })
       .catch(e => {
         res.status(500).send(e);
       });
   });
 
-router.get('/current-date',
+router.get('/',
   async (req, res) => {
-    service.getCurrentDate()
-      .then(result => {
-        res.status(200).send(result);
-      })
-      .catch(e => {
-        res.status(500).send(e);
-      });
-  });
-
-router.get('/events/next',
-  async (req, res) => {
-    service.getNextEvent()
+    service.getAllCountries()
       .then(result => {
         res.status(200).send(result);
       })

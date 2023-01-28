@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const worldRouter = require('./routes/wolrd.route');
+const countryRouter = require('./routes/country.route');
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/world', worldRouter);
+app.use('/', worldRouter);
+app.use('/countries', countryRouter);
 
 module.exports = app;

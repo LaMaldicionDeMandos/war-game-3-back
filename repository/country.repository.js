@@ -1,4 +1,5 @@
 const db = require('./DB');
+const _ = require('lodash');
 
 class CountryRepository {
     newCountry(countryDTO) {
@@ -8,16 +9,25 @@ class CountryRepository {
         country.name = countryDTO.name;
         country.pib = countryDTO.pib;
         country.pop = countryDTO.pop;
-
+        country.position = countryDTO.position;
+        country.geoLocation = {type: 'Point', coordinates: [countryDTO.position.lng, countryDTO.position.lat]};
         return country.save();
     }
 
+    findAll() {
+        return this.#findAllByQuery();
+    }
+
     findAllBut(countryId) {
-        return db.Country.find({_id: {$ne: countryId}});
+        return this.#findAllByQuery({_id: {$ne: countryId}});
     }
 
     existsByCode(countryCode) {
         return db.Country.exists({code: countryCode});
+    }
+
+    async #findAllByQuery(q) {
+        return db.Country.find(q);
     }
 }
 

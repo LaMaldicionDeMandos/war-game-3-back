@@ -13,15 +13,6 @@ class EventBuilder {
     };
   }
 
-  createNewCountryEvent(countryId, currentDate, country) {
-    const ev = {
-      countryId: countryId,
-      type: NEW_COUNTRY_EVENT,
-      payload: country
-    }
-    return this.#assignEventDelay(ev, currentDate, {value: 5, unit: 'm'});
-  }
-
   #assignEventDelay(ev, currentDate, delay) {
     const date = moment(currentDate);
     date.add(delay.value, delay.unit);
