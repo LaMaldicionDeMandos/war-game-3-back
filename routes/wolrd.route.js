@@ -2,6 +2,8 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const service = require('../services/world.service');
 
+const keepPropertiesAfter = require('./keepPropertiesAfter');
+
 const router = express.Router();
 
 errorMiddleware = (req, res, next) => {
@@ -37,6 +39,7 @@ router.get('/current-date',
   });
 
 router.get('/events/next',
+  [keepPropertiesAfter('_id,countryId,type,date')],
   async (req, res) => {
     service.getNextEvent()
       .then(result => {
