@@ -14,6 +14,10 @@ class CountryRepository {
         return country.save();
     }
 
+    findById(id) {
+        return db.Country.findOne({_id: id});
+    }
+
     findAll() {
         return this.#findAllByQuery();
     }

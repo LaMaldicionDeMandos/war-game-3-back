@@ -21,6 +21,10 @@ class CountriesService {
     return countryRepo.findAll();
   }
 
+  getCountry(id) {
+    return countryRepo.findById(id);
+  }
+
   async #doByCountryBut(countryId, action) {
     const countries = await countryRepo.findAllBut(countryId);
     return this.#doByCountry(action, countries);
