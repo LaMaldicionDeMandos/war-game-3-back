@@ -50,4 +50,19 @@ router.get('/:id',
       });
   });
 
+router.post('/:code/city',
+  body('country').notEmpty(),
+  body('name').notEmpty(),
+  body('points').notEmpty(),
+  errorMiddleware,
+  async (req, res, next) => {
+    service.addCity(req.params.code, req.body)
+      .then(result => {
+        res.status(201).send(result);
+      })
+      .catch(e => {
+        res.status(500).send(e);
+      });
+  });
+
 module.exports = router;

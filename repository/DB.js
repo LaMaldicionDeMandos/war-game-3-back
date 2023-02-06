@@ -29,6 +29,16 @@ const CountrySchema = new Schema({
     geoLocation: {type: pointSchema, index: {type: '2dsphere', sparse: true}}
 });
 
+const CitySchema = new Schema({
+    _id: String,
+    country: {type: String, index: true},
+    name: String,
+    points: Number,
+    countryId: {type: String, index: true},
+    position: {lat: Number, lng: Number},
+    geoLocation: {type: pointSchema, index: {type: '2dsphere', sparse: true}}
+});
+
 const EventSchema = new Schema( {
     _id: String,
     countryId: {type: String, index: true},
@@ -40,6 +50,7 @@ const EventSchema = new Schema( {
 
 const WorldParam = mongoose.model('World', WorldParamSchema);
 const Country = mongoose.model('Country', CountrySchema);
+const City = mongoose.model('City', CitySchema);
 const Event = mongoose.model('Event', EventSchema);
 
 const db = new function() {
@@ -49,6 +60,7 @@ const db = new function() {
     this.ObjectId = mongoose.Types.ObjectId;
     this.WorldParam = WorldParam;
     this.Country = Country;
+    this.City = City;
     this.Event = Event;
 };
 

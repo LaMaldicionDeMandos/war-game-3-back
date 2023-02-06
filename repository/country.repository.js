@@ -18,6 +18,10 @@ class CountryRepository {
         return db.Country.findOne({_id: id});
     }
 
+    findByCode(code) {
+        return db.Country.findOne({code: code});
+    }
+
     findAll() {
         return this.#findAllByQuery();
     }

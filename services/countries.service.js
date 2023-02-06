@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const countryRepo = require('../repository/country.repository');
+const cityRepo = require('../repository/city.repository');
 const worldRepo = require('../repository/wold.repository');
 const eventRepo = require('../repository/event.repository');
 
@@ -15,6 +16,11 @@ class CountriesService {
     const assignEvent = eventBuilder.createAssignBudgetEvent(country._id, currentDate);
     eventRepo.newEvent(assignEvent);
     return country;
+  }
+
+  async addCity(countryCode, cityDto) {
+    const country = await countryRepo.findByCode(countryCode);
+    return cityRepo.newCity(_.assign(cityDto, {countryId: country._id}));
   }
 
   getAllCountries() {
