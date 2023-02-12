@@ -13,6 +13,10 @@ class CityRepository {
         city.geoLocation = {type: 'Point', coordinates: [cityDTO.position.lng, cityDTO.position.lat]};
         return city.save();
     }
+
+    getAll() {
+        return db.City.find();
+    }
 }
 
 const repo = new CityRepository();

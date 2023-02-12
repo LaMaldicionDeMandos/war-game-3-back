@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const worldRepo = require('../repository/wold.repository');
+const cityRepo = require('../repository/city.repository');
 const eventRepo = require('../repository/event.repository');
 
 class WorldService {
@@ -15,6 +16,10 @@ class WorldService {
   async getNextEvent() {
     const currentDate = await this.getCurrentDate();
     return eventRepo.nextAfter(currentDate);
+  }
+
+  getAllCities() {
+    return cityRepo.getAll();
   }
 }
 
